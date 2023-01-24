@@ -14,9 +14,15 @@ $ npm install --save react-formatted-number-input
 
 ## Usage
 
-```ts
+This project has been updated to use React hooks at its core.
+
+To continue using the Class component based version, import it from `react-formatted-number-input/legacy`.
+
+### Legacy
+
+```tsx
 import React from "react";
-import { createFormattedNumberInput } from "react-formatted-number-input";
+import { createFormattedNumberInput } from "react-formatted-number-input/legacy";
 
 const FancyInput = React.forwardRef((props, ref) => {
   return (
@@ -27,11 +33,38 @@ const FancyInput = React.forwardRef((props, ref) => {
 });
 
 const FormattedNumberInput = createFormattedNumberInput(FancyInput, {
-  precision: 2
+  precision: 2,
 });
 
 const Demo = () => {
   const [value, setValue] = React.useState();
+
+  return <FormattedNumberInput value={value} onChange={setValue} />;
+};
+```
+
+### Hooks core
+
+To use the hooks version of this project, import it from the root, `react-formatted-number-input`.
+
+```tsx
+import { forwardRef, useState } from "react";
+import { createFormattedNumberInput } from "react-formatted-number-input";
+
+const FancyInput = forwardRef((props, ref) => {
+  return (
+    <div>
+      <input ref={ref} {...props} />
+    </div>
+  );
+});
+
+const FormattedNumberInput = createFormattedNumberInput(FancyInput, {
+  precision: 2,
+});
+
+const Demo = () => {
+  const [value, setValue] = useState();
 
   return <FormattedNumberInput value={value} onChange={setValue} />;
 };
